@@ -1,0 +1,91 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "project": "./tsconfig.json",
+        "useJSXTextNode": true
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [],
+    "settings": {},
+    "rules": {
+        "no-undef": "off",
+        "key-spacing": "warn",
+        "keyword-spacing": "warn",
+        "indent": [
+            "warn",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "no-trailing-spaces": "warn",
+        "no-multi-spaces": "warn",
+        "space-unary-ops": "warn",
+        "no-multiple-empty-lines": "warn",
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "space-before-blocks": "warn",
+        "array-bracket-spacing": [
+            "warn",
+            "always"
+        ],
+        "comma-spacing": "warn",
+        "space-in-parens": "warn",
+        "eol-last": "warn",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "brace-style": [
+            "warn",
+            "stroustrup"
+        ],
+        "no-console": [
+            "warn"
+        ],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn"
+        ],
+        "comma-dangle": [
+            "warn",
+            "always-multiline"
+        ],
+        "no-control-regex": 0,
+        "@typescript-eslint/member-delimiter-style": [
+            "warn",
+            {
+                "multiline": {
+                    "delimiter": "comma"
+                },
+                "singleline": {
+                    "delimiter": "comma",
+                    "requireLast": false
+                }
+            }
+        ],
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "import/no-unresolved": "off",
+        "import/no-default-export": "off",
+        "import-order-alphabetical/order": "off",
+        "no-shadow": "off",
+        "import/no-anonymous-default-export": "off",
+        "quotes": [
+            "error",
+            "single"
+        ]
+    }
+}
