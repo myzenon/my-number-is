@@ -17,9 +17,7 @@ function App() {
                 >
                     <Summary />
                 </section>
-                <section class="flex-1 overflow-y-auto relative rounded-md bg-black bg-opacity-30 backdrop-filter backdrop-blur-xl">
-                    <History />
-                </section>
+                <History />
             </section>
             <section
                 class="px-8"

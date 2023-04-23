@@ -12,9 +12,18 @@ function Modal(props: ParentProps<ModalProps>) {
             <div
                 class="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
                 data-tauri-drag-region
+                onKeyPress={(event) => {
+                    if ((event.key || event.code) === 'Escape') {
+                        props.onClose()
+                    }
+                }}
+                onClick={props.onClose}
             >
                 <div
                     class="relative p-8 pt-12 bg-white bg-opacity-40 backdrop-filter backdrop-blur-sm rounded text-black"
+                    onClick={(event) => {
+                        event.stopPropagation()
+                    }}
                 >
                     <header
                         class="absolute top-0 right-0 p-2"

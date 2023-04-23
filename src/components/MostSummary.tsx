@@ -1,6 +1,11 @@
 import { FaSolidRankingStar } from 'solid-icons/fa'
+import { ParentProps } from 'solid-js'
 
-function MostSummary() {
+type MostSummaryProps = {
+    value: number,
+}
+
+function MostSummary(props: ParentProps<MostSummaryProps>) {
     return (
         <div
             class="flex flex-row items-center justify-between mb-2"
@@ -14,7 +19,7 @@ function MostSummary() {
                 </div>
             </div>
             <div class="ml-12 bg-white rounded-full w-8 h-8 text-black font-bold flex items-center justify-center">
-                32
+                { props.value }
             </div>
         </div>
     )

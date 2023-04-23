@@ -1,27 +1,42 @@
-import { createSignal, onMount, ParentProps } from 'solid-js'
+import { createMemo, createSignal, onMount, ParentProps } from 'solid-js'
 import Modal from '@/components/Modal'
+import { useMe } from '@/context/me'
 
-type NumberCustomProps = {
-    isSelected: boolean,
-}
-
-function NumberCustom(props: ParentProps<NumberCustomProps>) {
-    let inputRef
-    const [ isInputShow, setIsInputShow ] = createSignal(true)
-
-    onMount(() => {
-        console.log(inputRef)
-        inputRef.focus()
-        console.log(inputRef)
+function NumberCustom() {
+    const [ isInputShow, setIsInputShow ] = createSignal(false)
+    const [ inputValue, setInputValue ] = createSignal('')
+    const me = useMe()
+    const isThisNumber = createMemo(() => ![ undefined, '5', '10', '20', '30', '40' ].includes(me.pickNumber()?.toString()))
+    const cssClass = createMemo(() => {
+        let defaultClass = 'flex-1 transition duration-500 cursor-pointer rounded-md p-4 sm:p-8 text-center text-4xl backdrop-filter backdrop-blur-md underline underline-offset-8'
+        if (isThisNumber()) {
+            defaultClass += ' bg-white bg-opacity-100 text-black'
+        }
+        else {
+            defaultClass += ' bg-gray-100 bg-opacity-30 hover:bg-opacity-50'
+        }
+        return defaultClass
     })
-
+    const onSubmit = () => {
+        if (!isNaN(Number(inputValue()))) {
+            me.setMyPickerNumber(inputValue())
+        }
+    }
     return (
         <>
             <div
-                class="flex-1 bg-gray-100 bg-opacity-30 hover:bg-opacity-50 transition duration-500 cursor-pointer rounded-md p-4 sm:p-8 text-center text-4xl backdrop-filter backdrop-blur-md underline underline-offset-8"
-                onClick={() => setIsInputShow(true)}
+                class={cssClass()}
+                onClick={() => {
+                    if (isThisNumber()) {
+                        me.setMyPickerNumber()
+                    }
+                    else {
+                        setInputValue('')
+                        setIsInputShow(true)
+                    }
+                }}
             >
-            ?
+                {!isThisNumber() ? '?': me.pickNumber()}
             </div>
 
             <Modal
@@ -31,21 +46,30 @@ function NumberCustom(props: ParentProps<NumberCustomProps>) {
                 <form
                     onSubmit={(event) => {
                         event.preventDefault()
+                        onSubmit()
+                        setIsInputShow(false)
                     }}
                 >
                     <div class="mb-4">
                         <input
-                            ref={inputRef}
+                            ref={(element) => {
+                                setTimeout(() => {
+                                    element.focus()
+                                }, 0)
+                            }}
                             type="text"
                             class="text-center w-32 text-4xl bg-gray-200 p-4 rounded-lg"
-                            value="20"
+                            value={inputValue()}
+                            onInput={event => {
+                                setInputValue(event.target.value)
+                            }}
                         />
                     </div>
                     <button
                         type="submit"
                         class="w-full bg-gray-800 hover:bg-black transition text-white font-bold py-2 px-4 rounded"
                     >
-                    OK
+                        OK
                     </button>
                 </form>
             </Modal>

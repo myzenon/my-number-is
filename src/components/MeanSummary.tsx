@@ -1,6 +1,11 @@
 import { TbSum } from 'solid-icons/tb'
+import { ParentProps } from 'solid-js'
 
-function MeanSummary() {
+type MeanSummaryProps = {
+    value: number,
+}
+
+function MeanSummary(props: ParentProps<MeanSummaryProps>) {
     return (
         <div
             class="flex flex-row items-center justify-between mb-2"
@@ -14,7 +19,7 @@ function MeanSummary() {
                 </div>
             </div>
             <div class="ml-12 bg-white rounded-full w-8 h-8 text-black font-bold flex items-center justify-center">
-                32
+                {props.value}
             </div>
         </div>
     )
