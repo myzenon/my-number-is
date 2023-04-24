@@ -43,14 +43,33 @@ function Summary() {
 
     const mostValue = createMemo(() => {
         const filteredNumber = people().map(person => parseInt(person.pickNumber)).filter(pNumber => !isNaN(pNumber))
+
         if (filteredNumber.length < 3) {
             return 0
         }
-        return filteredNumber.reduce((acc, el) => {
-            acc.k[el] = acc.k[el] ? acc.k[el] + 1 : 1
-            acc.max = acc.max ? acc.max < acc.k[el] ? el : acc.max : el
-            return acc
-        }, { k: {} } as { max: number, k: { [key: number]: number } }).max
+
+        // Create a frequency map
+        const frequencyMap = {} as { [key: number]: number }
+        for (const number of filteredNumber) {
+            if (frequencyMap[number]) {
+                frequencyMap[number]++
+            }
+            else {
+                frequencyMap[number] = 1
+            }
+        }
+
+        // Find the key with the highest value
+        const maxKey = (Object.keys(frequencyMap) as unknown as number[])
+            .reduce((prevKey, currKey) => frequencyMap[prevKey] > frequencyMap[currKey] ? prevKey : currKey)
+
+        // Check if the frequency of the max key is greater than 1
+        if (frequencyMap[maxKey] > 1) {
+            return maxKey
+        }
+        else {
+            return 0
+        }
     })
 
     const meanValue = createMemo(() => {
